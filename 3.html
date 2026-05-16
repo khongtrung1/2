@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vân Sương Ngưng · Trang Chủ</title>
+    <style>
+      :root {
+        --bg: #0c0406;
+        --bg2: #1a0a10;
+        --bg3: #0c0a1e;
+        --ice: #c03050;
+        --ice-dim: #8a2038;
+        --acc: #ff6080;
+        --frost: #ffd0d8;
+        --text: #ffe8ec;
+        --sub: #a07080;
+        --gold: #e8be58;
+        --good: #40c880;
+        --font-main: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(170deg, var(--bg) 0%, var(--bg3) 30%, var(--bg2) 60%, #060205 100%);
+        color: var(--text);
+        font-family: var(--font-main);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 15% -5%, rgba(192, 48, 80, 0.15), transparent 50%),
+          radial-gradient(ellipse at 85% 105%, rgba(138, 32, 56, 0.1), transparent 50%),
+          radial-gradient(circle at 50% 50%, rgba(255, 96, 128, 0.02), transparent 70%);
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            rgba(192, 48, 80, 0.018) 20px,
+            rgba(192, 48, 80, 0.018) 21px
+          ),
+          repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 20px,
+            rgba(192, 48, 80, 0.012) 20px,
+            rgba(192, 48, 80, 0.012) 21px
+          );
+      }
+
+      .page {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+      }
+
+      /* Màn hình rộng trên desktop: dùng padding trái phải lớn hơn để thu hẹp, tránh văn bản một dòng quá dài khó đọc */
+      @media (min-width: 900px) {
+        .page {
+          padding: 40px 10% 60px;
+        }
+      }
+
+      /* ============ Header ============ */
+      header {
+        text-align: center;
+        padding: 24px 16px 32px;
+        border-bottom: 1px solid rgba(192, 48, 80, 0.18);
+        margin-bottom: 28px;
+        position: relative;
+      }
+
+      header::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -1px;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 2%,
+          var(--ice-dim) 20%,
+          var(--acc) 50%,
+          var(--ice-dim) 80%,
+          transparent 98%
+        );
+        box-shadow: 0 0 8px rgba(255, 96, 128, 0.4);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: 6px;
+        color: var(--frost);
+        text-shadow:
+          0 0 12px rgba(255, 96, 128, 0.35),
+          0 0 24px rgba(192, 48, 80, 0.15);
+      }
+
+      .subtitle {
+        margin: 0 0 6px;
+        font-size: 14px;
+        letter-spacing: 4px;
+        color: var(--ice);
+        text-shadow: 0 0 6px rgba(192, 48, 80, 0.25);
+      }
+
+      .version {
+        margin: 8px 0 0;
+        font-size: 11px;
+        color: var(--sub);
+        letter-spacing: 2px;
+      }
+
+      /* ============ Section ============ */
+      section {
+        margin-bottom: 32px;
+        background: linear-gradient(180deg, rgba(192, 48, 80, 0.04) 0%, rgba(192, 48, 80, 0.01) 100%);
+        border: 1px solid rgba(192, 48, 80, 0.18);
+        border-radius: 10px;
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.4),
+          0 0 40px rgba(192, 48, 80, 0.04),
+          inset 0 1px 0 rgba(255, 208, 216, 0.05);
+        padding: 20px 22px;
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--acc);
+        letter-spacing: 3px;
+        text-shadow: 0 0 6px rgba(255, 96, 128, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      section h2::before,
+      section h2::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(192, 48, 80, 0.4), transparent);
+      }
+
+      /* ============ Intro Info Rows ============ */
+      .info-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 10px 12px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+      }
+
+      .info-row:hover {
+        background: rgba(192, 48, 80, 0.06);
+      }
+
+      .info-label {
+        flex: 0 0 96px;
+        color: var(--sub);
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+
+      .info-value {
+        flex: 1;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .info-row.highlight {
+        background: linear-gradient(135deg, rgba(232, 190, 88, 0.06) 0%, rgba(232, 190, 88, 0.02) 100%);
+        border: 1px solid rgba(232, 190, 88, 0.18);
+        margin-top: 8px;
+      }
+
+      .info-row.highlight .info-label {
+        color: var(--gold);
+        text-shadow: 0 0 6px rgba(232, 190, 88, 0.2);
+      }
+
+      .info-row.highlight .info-value {
+        color: var(--frost);
+      }
+
+      /* ============ Notice · Bắt buộc đọc trước khi dùng ============ */
+      section.notice {
+        position: relative;
+        padding: 16px 20px 16px 26px;
+        border-color: rgba(192, 48, 80, 0.45);
+        background: linear-gradient(180deg, rgba(192, 48, 80, 0.09) 0%, rgba(192, 48, 80, 0.02) 100%);
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.4),
+          0 0 24px rgba(192, 48, 80, 0.12),
+          inset 0 1px 0 rgba(255, 208, 216, 0.08);
+      }
+
+      section.notice::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--acc) 0%, var(--ice) 50%, var(--ice-dim) 100%);
+        border-radius: 10px 0 0 10px;
+        box-shadow: 0 0 12px rgba(255, 96, 128, 0.35);
+      }
+
+      section.notice h2 {
+        margin: 0 0 12px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: var(--acc);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Ghi đè pseudo-element phân chia ngang của section h2 cha */
+      section.notice h2::before,
+      section.notice h2::after {
+        content: none;
+      }
+
+      .notice-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .notice-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 12px;
+        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid rgba(192, 48, 80, 0.2);
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.55;
+      }
+
+      .notice-icon {
+        flex: 0 0 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 5px;
+      }
+
+      .notice-item.must-off .notice-icon {
+        color: #ff5a6a;
+        background: rgba(255, 74, 90, 0.14);
+        border: 1px solid rgba(255, 74, 90, 0.45);
+        text-shadow: 0 0 6px rgba(255, 74, 90, 0.5);
+      }
+
+      .notice-item.must-on .notice-icon {
+        color: var(--good);
+        background: rgba(64, 200, 128, 0.12);
+        border: 1px solid rgba(64, 200, 128, 0.45);
+        text-shadow: 0 0 6px rgba(64, 200, 128, 0.4);
+      }
+
+      .notice-item.recommend .notice-icon {
+        color: var(--gold);
+        background: rgba(232, 190, 88, 0.12);
+        border: 1px solid rgba(232, 190, 88, 0.45);
+        text-shadow: 0 0 6px rgba(232, 190, 88, 0.4);
+      }
+
+      .notice-item.recommend {
+        border-color: rgba(232, 190, 88, 0.2);
+        background: linear-gradient(135deg, rgba(232, 190, 88, 0.05) 0%, rgba(0, 0, 0, 0.28) 100%);
+      }
+
+      .notice-key {
+        color: var(--frost);
+        font-weight: 600;
+        margin: 0 1px;
+      }
+
+      .notice-item.recommend .notice-key {
+        color: var(--gold);
+      }
+
+      .notice-hint {
+        color: var(--sub);
+        font-size: 12px;
+        margin-left: 4px;
+      }
+
+      /* ============ Entry Cards ============ */
+      .entry-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .entry-card {
+        display: flex;
+        gap: 16px;
+        padding: 16px 18px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(192, 48, 80, 0.18);
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          border-color 0.4s,
+          box-shadow 0.4s,
+          transform 0.2s;
+        box-shadow: inset 0 1px 0 rgba(255, 208, 216, 0.04);
+      }
+
+      .entry-card:hover {
+        border-color: rgba(255, 96, 128, 0.5);
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.4),
+          0 0 16px rgba(255, 96, 128, 0.18),
+          0 0 32px rgba(192, 48, 80, 0.08),
+          inset 0 1px 0 rgba(255, 208, 216, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .entry-card:active {
+        transform: translateY(0);
+      }
+
+      /* ── Khởi đầu đề xuất: Viền sáng vàng + Huy hiệu trên cùng + Hiệu ứng nhịp thở ── */
+      .entry-card.entry-recommended {
+        position: relative;
+        border-color: rgba(232, 190, 88, 0.55);
+        background: linear-gradient(180deg, rgba(232, 190, 88, 0.08) 0%, rgba(0, 0, 0, 0.3) 50%);
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.4),
+          0 0 18px rgba(232, 190, 88, 0.18),
+          inset 0 1px 0 rgba(232, 190, 88, 0.18);
+        animation: recommendGlow 3s ease-in-out infinite;
+      }
+
+      .entry-card.entry-recommended:hover {
+        border-color: rgba(232, 190, 88, 0.85);
+        box-shadow:
+          0 4px 28px rgba(0, 0, 0, 0.5),
+          0 0 28px rgba(232, 190, 88, 0.32),
+          0 0 48px rgba(232, 190, 88, 0.12),
+          inset 0 1px 0 rgba(232, 190, 88, 0.25);
+      }
+
+      .entry-recommend-badge {
+        position: absolute;
+        top: -10px;
+        right: 16px;
+        padding: 2px 12px;
+        background: linear-gradient(135deg, #f5d36a 0%, #c8a040 100%);
+        color: #2a1a05;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        border-radius: 12px;
+        box-shadow:
+          0 2px 8px rgba(232, 190, 88, 0.4),
+          0 0 12px rgba(232, 190, 88, 0.25);
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+        white-space: nowrap;
+      }
+
+      @keyframes recommendGlow {
+        0%,
+        100% {
+          box-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.4),
+            0 0 18px rgba(232, 190, 88, 0.18),
+            inset 0 1px 0 rgba(232, 190, 88, 0.18);
+        }
+        50% {
+          box-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.4),
+            0 0 24px rgba(232, 190, 88, 0.32),
+            inset 0 1px 0 rgba(232, 190, 88, 0.25);
+        }
+      }
+
+      .entry-num {
+        flex: 0 0 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(192, 48, 80, 0.25) 0%, rgba(138, 32, 56, 0.15) 100%);
+        border: 1px solid rgba(192, 48, 80, 0.4);
+        border-radius: 50%;
+        color: var(--frost);
+        font-size: 16px;
+        font-weight: 600;
+        text-shadow: 0 0 6px rgba(255, 96, 128, 0.3);
+      }
+
+      .entry-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .entry-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--frost);
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .entry-tag {
+        display: inline-block;
+        padding: 1px 8px;
+        font-size: 10px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        border-radius: 10px;
+        border: 1px solid;
+      }
+
+      .tag-start {
+        color: var(--good);
+        border-color: rgba(64, 200, 128, 0.4);
+        background: rgba(64, 200, 128, 0.08);
+      }
+
+      .tag-mid {
+        color: var(--ice);
+        border-color: rgba(192, 48, 80, 0.4);
+        background: rgba(192, 48, 80, 0.08);
+      }
+
+      .tag-deep {
+        color: var(--acc);
+        border-color: rgba(255, 96, 128, 0.4);
+        background: rgba(255, 96, 128, 0.08);
+      }
+
+      .tag-end {
+        color: var(--gold);
+        border-color: rgba(232, 190, 88, 0.4);
+        background: rgba(232, 190, 88, 0.08);
+      }
+
+      .entry-desc {
+        font-size: 12.5px;
+        color: var(--text);
+        line-height: 1.7;
+        margin-bottom: 8px;
+        opacity: 0.92;
+      }
+
+      .entry-meta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        color: var(--sub);
+        letter-spacing: 0.5px;
+      }
+
+      .entry-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* ============ Footer ============ */
+      footer {
+        margin-top: 24px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--sub);
+        letter-spacing: 2px;
+        opacity: 0.7;
+        padding: 12px;
+        border-top: 1px dashed rgba(192, 48, 80, 0.12);
+      }
+
+      /* ============ Responsive ============ */
+      @media (max-width: 480px) {
+        .page {
+          padding: 20px 14px 32px;
+        }
+        h1 {
+          font-size: 28px;
+          letter-spacing: 4px;
+        }
+        section {
+          padding: 16px;
+        }
+        .info-label {
+          flex-basis: 78px;
+          font-size: 12px;
+        }
+        .info-value {
+          font-size: 12px;
+        }
+        .entry-card {
+          padding: 14px;
+          gap: 12px;
+        }
+        .entry-num {
+          flex-basis: 32px;
+          height: 32px;
+          font-size: 14px;
+        }
+        .entry-title {
+          font-size: 14px;
+        }
+        .entry-desc {
+          font-size: 12px;
+        }
+
+        /* Bắt buộc đọc trước khi dùng · Tương thích di động */
+        section.notice {
+          padding: 14px 14px 14px 20px;
+        }
+        section.notice::before {
+          width: 3px;
+        }
+        section.notice h2 {
+          font-size: 13px;
+          letter-spacing: 1.5px;
+          margin-bottom: 10px;
+        }
+        .notice-item {
+          padding: 8px 10px;
+          gap: 10px;
+          font-size: 12px;
+          line-height: 1.5;
+          align-items: flex-start;
+        }
+        .notice-icon {
+          flex: 0 0 20px;
+          height: 20px;
+          font-size: 11px;
+          margin-top: 1px;
+        }
+        .notice-hint {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Vân Sương Ngưng</h1>
+        <p class="subtitle">Hàn Sương Vũ Hóa · Thần Hồn Tương Bạn</p>
+        <p class="version">v 2.0.45</p>
+      </header>
+
+      <section class="intro">
+        <h2>Tóm Tắt Cốt Truyện</h2>
+        <div class="info-rows">
+          <div class="info-row">
+            <span class="info-label">Nhân vật chính</span>
+            <span class="info-value">{{user}} · Thiếu niên hiện đại mang Thánh Dương Chi Thể, ngoài ý muốn rơi vào Tu Chân Giới</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Bối cảnh</span>
+            <span class="info-value"
+              >Chưởng môn Hàn Sương Môn Vân Sương Ngưng khi xung kích Địa Tiên Cảnh đã trúng Địa Kiếp Hàn Độc, thần hồn chìm vào giấc ngủ say. Trượng phu của nàng là Miêu Quảng tìm được {{user}} mang Thánh Dương Chi Thể đến để thần hồn tương bạn, danh nghĩa là trị liệu, thực chất là khởi đầu của một ván cờ dài dằng dặc.</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-label">Chủ đề</span>
+            <span class="info-value"
+              >Trị liệu và đọa lạc trong ván cờ đa tuyến: tín nhiệm, phòng tuyến tâm lý, thần hồn, Thiên Tinh Ảo Thuật, lần đầu gặp gỡ thực tế, tuyên cáo cắm sừng, kết cục tái giá——mỗi bước đi đều dẫn đến những kết cục khác nhau.</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-label">Góc nhìn</span>
+            <span class="info-value">Trần thuật ngôi thứ ba tinh tế dưới góc nhìn chính của Vân Sương Ngưng, dùng cảm nhận và tâm tư của nàng để phản chiếu {{user}} và Miêu Quảng.</span>
+          </div>
+          <div class="info-row highlight">
+            <span class="info-label">Gợi ý cơ chế</span>
+            <span class="info-value"
+              >Cách kích hoạt độ cắm sừng của Miêu Quảng: Khi tâm thái Miêu Quảng tiến vào「Phát Giác」, trước tiên ở tầng trước sử dụng「Cách Âm Linh Trận」, sau đó ở tầng tiếp theo sử dụng「Thực Tâm Lộ」là có thể kích hoạt chuyển đổi nhục nhã→mặc nhận. Chú ý: Cách Âm Linh Trận bắt buộc phải sử dụng riêng lẻ trước, không thể dùng cùng lúc với Thực Tâm Lộ trong cùng một tầng.</span
+            >
+          </div>
+          <div class="info-row highlight">
+            <span class="info-label">Gợi ý cơ chế</span>
+            <span class="info-value"
+              >Cách mở tuyến Lạc Thư Tình: Sau khi Vân Sương Ngưng trị liệu tiến vào giai đoạn 3, lần đầu tiên tiến vào không gian thần hồn sẽ kích hoạt đêm tân hôn; nhấp lại「Tiến vào không gian thần hồn」sẽ ngoài ý muốn rơi vào không gian riêng tư của Lạc Thư Tình (5 lượt cốt truyện kích hoạt).</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="notice">
+        <h2>🔴 Bắt buộc đọc trước khi dùng</h2>
+        <div class="notice-list">
+          <div class="notice-item must-off">
+            <span class="notice-icon">✕</span>
+            <span
+              >Bắt buộc tắt plugin <span class="notice-key">【Tiểu Bạch X】</span><span class="notice-hint"
+                > (nếu có)</span
+              ></span
+            >
+          </div>
+          <div class="notice-item must-on">
+            <span class="notice-icon">✓</span>
+            <span>Bắt buộc cài đặt và bật plugin <span class="notice-key">【Prompt Template】</span></span>
+          </div>
+          <div class="notice-item must-on">
+            <span class="notice-icon">✓</span>
+            <span>Bắt buộc cài đặt và cập nhật <span class="notice-key">【Tavern Helper】</span> lên phiên bản mới nhất</span>
+          </div>
+          <div class="notice-item recommend">
+            <span class="notice-icon">★</span>
+            <span
+              >Đề xuất cài đặt plugin <span class="notice-key">【Database】</span
+              ><span class="notice-hint"> (trải nghiệm ghi nhớ và truy vấn cốt truyện tốt hơn)</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="entries">
+        <h2>Chọn Lối Vào</h2>
+        <div class="entry-grid">
+          <div class="entry-card entry-recommended" onclick="selectEntry(1)">
+            <div class="entry-recommend-badge">★ Khởi đầu đề xuất ★</div>
+            <div class="entry-num">1</div>
+            <div class="entry-content">
+              <div class="entry-title">Hàn Độc Phát Tác <span class="entry-tag tag-start">Điểm Bắt Đầu</span></div>
+              <div class="entry-desc">
+                Một tháng trước khi xung kích Địa Tiên Cảnh đã bị Địa Kiếp Hàn Độc xâm nhập thần hồn, chưởng môn Hàn Sương Môn Vân Sương Ngưng chìm vào giấc ngủ say tại Ngưng Tâm Cư. Miêu Quảng tìm được {{user}} mang Thánh Dương Chi Thể, đưa hắn đến trước giường. Khởi đầu của mọi thứ.
+              </div>
+              <div class="entry-meta">
+                <span>📅 Huyền Sương Lịch năm 973·Tháng Sương Giáng</span>
+                <span>📍 Hàn Sương Môn · Ngưng Tâm Cư</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry-card" onclick="selectEntry(2)">
+            <div class="entry-num">2</div>
+            <div class="entry-content">
+              <div class="entry-title">Thực Tế Sơ Thiệp <span class="entry-tag tag-mid">Giai Đoạn Ba</span></div>
+              <div class="entry-desc">
+                Vài tháng trị liệu đã thấy hiệu quả nhỏ, Vân Sương Ngưng dần sinh ra độ tín nhiệm, phong cấm của Địa Tiên Cảnh đã có một tia buông lỏng. Nàng ở Ngưng Tâm Cư lần đầu tiên có thể ngồi dậy trong chốc lát, tiếp xúc thực tế với {{user}} vừa mới bắt đầu——nhưng cánh cửa sâu trong thần hồn kia, vẫn chưa được đẩy ra.
+              </div>
+              <div class="entry-meta">
+                <span>📅 Huyền Sương Lịch năm 973·Tháng Tiểu Tuyết</span>
+                <span>📍 Hàn Sương Môn · Ngưng Tâm Cư</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry-card" onclick="selectEntry(3)">
+            <div class="entry-num">3</div>
+            <div class="entry-content">
+              <div class="entry-title">Thần Hồn Sơ Độ <span class="entry-tag tag-mid">Giai Đoạn Ba</span></div>
+              <div class="entry-desc">
+                Đêm tân hôn trong không gian thần hồn đã thành dĩ vãng, thân tâm Vân Sương Ngưng đều có dao động. Lần đầu tiên nàng phát hiện, trong đạo thần thức trong trẻo xa cách kia, ẩn chứa tiếng vọng không chỉ thuộc về một mình nàng——khi bước vào thần hồn lần nữa, vận mệnh sẽ từ đây rẽ nhánh.
+              </div>
+              <div class="entry-meta">
+                <span>📅 Huyền Sương Lịch năm 973·Tháng Đại Tuyết</span>
+                <span>📍 Hàn Sương Môn · Ngưng Tâm Cư</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry-card" onclick="selectEntry(4)">
+            <div class="entry-num">4</div>
+            <div class="entry-content">
+              <div class="entry-title">Địa Tiên Lâm Huyễn <span class="entry-tag tag-deep">Giai Đoạn Bảy</span></div>
+              <div class="entry-desc">
+                Tuyên cáo cắm sừng đã buông, Thực Tâm Lộ lật đổ phòng tuyến tâm lý của Miêu Quảng, Lạc Thư Tình cũng đã bị {{user}} kéo vào con đường này. Vân Sương Ngưng ba ngày trước phá cảnh Địa Tiên, cấm thuật ngàn năm không truyền của tổ sư Hàn Sương Môn——Thiên Tinh Ảo Thuật——theo đó giải phong. Nàng sẽ đích thân dùng thần thức tiến vào thức hải Miêu Quảng, từng tấc từng tấc sửa đổi ba trăm năm ký ức phu thê kia.
+              </div>
+              <div class="entry-meta">
+                <span>📅 Huyền Sương Lịch năm 974·Tháng Sơ Xuân</span>
+                <span>📍 Hàn Sương Môn · Ngoại Viện Chủ Điện</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry-card" onclick="selectEntry(5)">
+            <div class="entry-num">5</div>
+            <div class="entry-content">
+              <div class="entry-title">Đêm Trước Tái Giá <span class="entry-tag tag-end">Kết Cục</span></div>
+              <div class="entry-desc">
+                Mọi thứ đều sẽ đi đến hồi kết. Độ tín nhiệm của Vân Sương Ngưng gần đầy, phòng tuyến tâm lý gần như sụp đổ, Lạc Thư Tình cùng nàng kề vai đứng trên cùng một bậc. Miêu Quảng trong quá trình sửa nhận thức đã trầm luân như nô lệ, đại điển tái giá của chưởng môn đã đang chuẩn bị——{{user}} đứng ở khoảnh khắc cuối cùng của mọi khả năng.
+              </div>
+              <div class="entry-meta">
+                <span>📅 Huyền Sương Lịch năm 974·Tháng Noãn Dương</span>
+                <span>📍 Hàn Sương Môn · Chủ Điện</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>Sau khi chọn lối vào sẽ tiến vào cốt truyện tương ứng, không thể quay lại trang chủ</footer>
+    </div>
+
+    <script>
+      // Dựa theo trường stat Cải Tạo Thể Xác thiết lập ở lời chào, suy ngược vật phẩm cải tạo cửa hàng tương ứng thành "Đã Mua"
+      // Sửa lỗi: Sau khi vào lối vào 2-5, Trạng Thái Đạo Cụ cửa hàng và thanh trạng thái không khớp (thanh trạng thái cúp G nhưng cửa hàng hiển thị Phong Hung Đan chưa mua)
+      function syncItemStateFromBodyMods(statData) {
+        if (!statData) return;
+        // Vân Sương Ngưng → Hệ Thống.Trạng Thái Đạo Cụ
+        const yunMods = statData['Vân Sương Ngưng'] && statData['Vân Sương Ngưng']['Cải Tạo Thể Xác'];
+        if (yunMods) {
+          if (!statData['Hệ Thống']) statData['Hệ Thống'] = {};
+          if (!statData['Hệ Thống']['Trạng Thái Đạo Cụ']) statData['Hệ Thống']['Trạng Thái Đạo Cụ'] = {};
+          const yunShop = statData['Hệ Thống']['Trạng Thái Đạo Cụ'];
+          // Cải tạo Ngực (tích lũy: đến G tất nhiên đã dùng Trung+Đại, đến H tất nhiên đã dùng Trung+Đại+Cực)
+          if (yunMods['Ngực'] === 'Cúp E' || yunMods['Ngực'] === 'Cúp G' || yunMods['Ngực'] === 'Cúp H') {
+            yunShop['Phong Hung Linh Nhũ Đan·Trung'] = 'Đã Mua';
+          }
+          if (yunMods['Ngực'] === 'Cúp G' || yunMods['Ngực'] === 'Cúp H') {
+            yunShop['Phong Hung Linh Nhũ Đan·Đại'] = 'Đã Mua';
+          }
+          if (yunMods['Ngực'] === 'Cúp H') {
+            yunShop['Phong Hung Linh Nhũ Đan·Cực'] = 'Đã Mua';
+          }
+          if (yunMods['Mông'] === 'Đẫy đà') {
+            yunShop['Phong Đồn Viên Ngọc Đan'] = 'Đã Mua';
+          }
+          if (yunMods['Khuyên Ngực']) {
+            yunShop['Khuyên Ngực'] = 'Đã Mua';
+          }
+          if (yunMods['Khuyên Âm Đạo']) {
+            yunShop['Khuyên Âm Đạo'] = 'Đã Mua';
+          }
+          // Dâm Văn bất kỳ vị trí nào không trống → Khắc Ấn Dâm Văn đã mua
+          if (yunMods['Dâm Văn'] && (yunMods['Dâm Văn']['Eo Bụng'] || yunMods['Dâm Văn']['Trước Ngực'] || yunMods['Dâm Văn']['Đùi Trong'] || yunMods['Dâm Văn']['Mông'])) {
+            yunShop['Khắc Ấn Dâm Văn'] = 'Đã Mua';
+          }
+        }
+        // Lạc Thư Tình → _Trạng Thái Đạo Cụ Lạc Thư Tình (từ điển độc lập)
+        const luoMods = statData['Lạc Thư Tình'] && statData['Lạc Thư Tình']['Cải Tạo Thể Xác'];
+        if (luoMods && statData['_Đã Kích Hoạt Tuyến Lạc Thư Tình']) {
+          if (!statData['_Trạng Thái Đạo Cụ Lạc Thư Tình']) statData['_Trạng Thái Đạo Cụ Lạc Thư Tình'] = {};
+          const luoShop = statData['_Trạng Thái Đạo Cụ Lạc Thư Tình'];
+          if (luoMods['Ngực'] === 'Cúp E' || luoMods['Ngực'] === 'Cúp G' || luoMods['Ngực'] === 'Cúp H') {
+            luoShop['Phong Hung Linh Nhũ Đan·Trung'] = 'Đã Mua';
+          }
+          if (luoMods['Ngực'] === 'Cúp G' || luoMods['Ngực'] === 'Cúp H') {
+            luoShop['Phong Hung Linh Nhũ Đan·Đại'] = 'Đã Mua';
+          }
+          if (luoMods['Ngực'] === 'Cúp H') {
+            luoShop['Phong Hung Linh Nhũ Đan·Cực'] = 'Đã Mua';
+          }
+          if (luoMods['Mông'] === 'Đẫy đà') {
+            luoShop['Phong Đồn Viên Ngọc Đan'] = 'Đã Mua';
+          }
+          if (luoMods['Khuyên Ngực']) {
+            luoShop['Khuyên Ngực'] = 'Đã Mua';
+          }
+          if (luoMods['Khuyên Âm Đạo']) {
+            luoShop['Khuyên Âm Đạo'] = 'Đã Mua';
+          }
+          if (luoMods['Dâm Văn'] && (luoMods['Dâm Văn']['Eo Bụng'] || luoMods['Dâm Văn']['Trước Ngực'] || luoMods['Dâm Văn']['Đùi Trong'] || luoMods['Dâm Văn']['Mông'])) {
+            luoShop['Khắc Ấn Dâm Văn'] = 'Đã Mua';
+          }
+        }
+      }
+
+      // Trang chủ → Logic chuyển đổi lối vào
+      // Bối cảnh vấn đề: MVU không phân tích khối <UpdateVariable><JSONPatch> nhúng trong lời chào, chỉ xử lý phản hồi của AI.
+      // Mà chuyển đổi swipe của setChatMessage lại không kích hoạt sự kiện MESSAGE_SWIPED (đó là do nút swipe UI kích hoạt).
+      // Cho nên bắt buộc phải đọc trực tiếp JSONPatch của swipe mới trong iframe trang chủ và thông qua tavern_helper
+      // API biến ghi vào stat_data của message 0, mới có thể làm cho giá trị ban đầu của lối vào 2-5 có hiệu lực.
+      async function selectEntry(swipeId) {
+        try {
+          const messages = await getChatMessages('0', { include_swipes: true });
+          if (!messages || !messages[0] || !messages[0].swipes) {
+            alert('Không thể lấy danh sách lời chào, vui lòng xác nhận trò chuyện đang ở trạng thái ban đầu.');
+            return;
+          }
+          const target = messages[0].swipes[swipeId];
+          if (target === undefined) {
+            alert('Lối vào ' + swipeId + ' không tìm thấy. Vui lòng xác nhận tất cả ' + messages[0].swipes.length + ' lời chào đều đã được thêm.');
+            return;
+          }
+
+          // 1. Phân tích khối <JSONPatch> trong nội dung swipe mới
+          const match = target.match(/<JSONPatch>\s*(\[[\s\S]*?\])\s*<\/JSONPatch>/);
+          let patches = null;
+          if (match) {
+            try {
+              patches = JSON.parse(match[1]);
+            } catch (err) {
+              console.warn('[Vân Sương Ngưng Trang Chủ] Phân tích JSONPatch thất bại:', err);
+            }
+          }
+
+          // 2. Trước tiên chuyển đổi hiển thị swipe —— Quan trọng: biến tin nhắn là per-swipe (ChatMessageSwiped.swipes_data),
+          //    ghi vào bắt buộc phải rơi vào data của swipe mục tiêu, nếu không sau khi setChatMessage chuyển đổi state sẽ đọc dữ liệu trống
+          await setChatMessage(target, 0, {
+            swipe_id: swipeId,
+            refresh: 'display_and_render_current',
+          });
+
+          // 3. Hiện tại current swipe là swipe mục tiêu, áp dụng JSONPatch vào stat_data của nó
+          if (patches && Array.isArray(patches) && patches.length > 0) {
+            try {
+              await updateVariablesWith(
+                function (variables) {
+                  if (!variables.stat_data) variables.stat_data = {};
+                  const statData = variables.stat_data;
+                  let appliedCount = 0;
+                  for (const patch of patches) {
+                    if (patch.op !== 'replace' && patch.op !== 'add') continue;
+                    if (typeof patch.path !== 'string') continue;
+                    const segments = patch.path.replace(/^\//, '').split('/');
+                    let obj = statData;
+                    for (let i = 0; i < segments.length - 1; i++) {
+                      if (obj[segments[i]] == null || typeof obj[segments[i]] !== 'object') {
+                        obj[segments[i]] = {};
+                      }
+                      obj = obj[segments[i]];
+                    }
+                    obj[segments[segments.length - 1]] = patch.value;
+                    appliedCount++;
+                  }
+                  // Ghi lại Hệ Thống.Trạng Thái Đạo Cụ và Cải Tạo Thể Xác trước khi sync
+                  const preSyncShop = JSON.parse(JSON.stringify((statData['Hệ Thống'] && statData['Hệ Thống']['Trạng Thái Đạo Cụ']) || {}));
+                  const preSyncYunMods = JSON.parse(
+                    JSON.stringify((statData['Vân Sương Ngưng'] && statData['Vân Sương Ngưng']['Cải Tạo Thể Xác']) || {}),
+                  );
+                  // auto-sync Trạng Thái Đạo Cụ cửa hàng
+                  syncItemStateFromBodyMods(statData);
+                  const postSyncShop = JSON.parse(JSON.stringify((statData['Hệ Thống'] && statData['Hệ Thống']['Trạng Thái Đạo Cụ']) || {}));
+                  console.info(
+                    '[Vân Sương Ngưng Trang Chủ] Chuyển đến swipe ' + swipeId + ' sau đó ghi ' + appliedCount + ' patch',
+                    'Trường quan trọng:',
+                    {
+                      '_Đã Mở Khóa Không Gian Thần Hồn': statData['_Đã Mở Khóa Không Gian Thần Hồn'],
+                      '_Đã Kích Hoạt Tuyến Lạc Thư Tình': statData['_Đã Kích Hoạt Tuyến Lạc Thư Tình'],
+                      'Giai Đoạn Trị Liệu': statData['Trị Liệu'] && statData['Trị Liệu']['Giai Đoạn'],
+                      'Độ Tín Nhiệm': statData['Vân Sương Ngưng'] && statData['Vân Sương Ngưng']['Độ Tín Nhiệm'],
+                    },
+                  );
+                  console.info('[Vân Sương Ngưng Trang Chủ] Cải Tạo Thể Xác (trước sau sync đồng nhất):', preSyncYunMods);
+                  console.info('[Vân Sương Ngưng Trang Chủ] Hệ Thống.Trạng Thái Đạo Cụ trước sync:', preSyncShop);
+                  console.info('[Vân Sương Ngưng Trang Chủ] Hệ Thống.Trạng Thái Đạo Cụ sau sync:', postSyncShop);
+                  return variables;
+                },
+                { type: 'message', message_id: 0 },
+              );
+
+              // Sau khi ghi đọc lại xác minh
+              await new Promise(resolve => setTimeout(resolve, 100));
+              const verifyVars = getVariables({ type: 'message', message_id: 0 });
+              const vsd = verifyVars && verifyVars.stat_data;
+              console.info('[Vân Sương Ngưng Trang Chủ] 100ms sau xác minh đọc:', {
+                '_Đã Mở Khóa Không Gian Thần Hồn': vsd && vsd['_Đã Mở Khóa Không Gian Thần Hồn'],
+                '_Đã Kích Hoạt Tuyến Lạc Thư Tình': vsd && vsd['_Đã Kích Hoạt Tuyến Lạc Thư Tình'],
+                'Giai Đoạn Trị Liệu': vsd && vsd['Trị Liệu'] && vsd['Trị Liệu']['Giai Đoạn'],
+                'Cải Tạo Thể Xác Vân Sương Ngưng': vsd && vsd['Vân Sương Ngưng'] && vsd['Vân Sương Ngưng']['Cải Tạo Thể Xác'],
+                'Trạng Thái Đạo Cụ Hệ Thống': vsd && vsd['Hệ Thống'] && vsd['Hệ Thống']['Trạng Thái Đạo Cụ'],
+              });
+            } catch (err) {
+              console.error('[Vân Sương Ngưng Trang Chủ] Áp dụng JSONPatch thất bại:', err);
+            }
+          }
+        } catch (e) {
+          console.error('[Vân Sương Ngưng Trang Chủ] Chuyển đổi lối vào thất bại:', e);
+          alert('Chuyển đổi thất bại: ' + (e && e.message ? e.message : String(e)));
+        }
+      }
+    </script>
+  </body>
+</html>
